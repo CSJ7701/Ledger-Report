@@ -1,6 +1,6 @@
 import argparse
-from ledger_report.journal_parser import JournalParser
-from ledger_report.report.summary_report import Summary_Report
+from journal_parser import JournalParser
+from report.summary_report import Summary_Report
 
 def main():
     parser = argparse.ArgumentParser(description="Generate reports from ledger-cli journals.")
@@ -13,5 +13,5 @@ def main():
 
     # Generate Report
     if args.report == "summary":
-        report = SummaryReport()
+        report = Summary_Report()
         report.generate(config_path)
