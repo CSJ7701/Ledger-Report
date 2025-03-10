@@ -1,6 +1,5 @@
 import ledger
-from Account import Account
-
+from account import Account
 from typing import List, Optional
 from datetime import date
 
@@ -11,7 +10,7 @@ class Journal:
 
     def _fetch_accounts(self) -> dict[str, Account]:
         accounts = {}
-        
+
         for xact in self.j.xacts():
             for post in xact.posts():
                 account = post.account
@@ -24,7 +23,7 @@ class Journal:
                     if parent_account.fullname() not in accounts:
                         accounts[parent_account.fullname()] = Account(parent_account)
                     parent_account = parent_account.parent
-                    
+
         return accounts
 
     def get_account(self, account_name: str) -> Account | None:
@@ -55,9 +54,9 @@ class Journal:
             child_balances = sum(self.get_balance(child.fullname) for child in self.get_children(account_name))
         else:
             if not start_date:
-                start_date = min(
+                start_date=  min(
                     (tx.date for tx in account.transactions),
-                    default=date.today()
+                    default = date.today()
                 )
             if not end_date:
                 end_date = date.today()
@@ -67,7 +66,6 @@ class Journal:
                 self.get_balance(child.fullname, start_date, end_date)
                 for child in self.get_children(account_name)
             )
-            
+
         return direct_balance + child_balances
-
-
+                    

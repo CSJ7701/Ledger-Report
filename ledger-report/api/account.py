@@ -1,7 +1,7 @@
 import ledger
 from typing import List
 from datetime import date
-from Transaction import Transaction
+from transaction import Transaction
 
 class Account:
     def __init__(self, account: ledger.Account):
@@ -25,7 +25,7 @@ class Account:
         for child in self.ledger_account.account():
             children.append(child.fullname())
         return children
-    
+
     @property
     def balance(self):
         return sum(tx.amount for tx in self.transactions)
